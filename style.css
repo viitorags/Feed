@@ -39,14 +39,17 @@ img {
     object-fit: cover;
 }
 
-/* Botões de interação */
-.btn-file-form>img,
+.btn-file-form i {
+    color: #ff5722;
+    font-size: 24px;
+}
+
+.btn-file-form,
 .files-post>img {
     width: 20px;
     height: 20px;
 }
 
-/* Botão geral */
 button {
     background-color: transparent;
     border: none;
