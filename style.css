@@ -492,6 +492,6 @@ dialog[open] {
     }
 
     .post-actions span {
-        display: none;
+        font-size: 10px;
     }
 }
