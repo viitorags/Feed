@@ -35,7 +35,7 @@ export class formPost {
                 /* Conteúdo da postagem dinâmica */
                 newPost.innerHTML = `
                     <div class="post-header">
-                        <img src="./images/gato-grilado.jpg" class="img-user-post" alt="Foto de perfil">
+                        <img src="./src/img/dog-tyson.jpeg" class="img-user-post" alt="Foto de perfil">
                         <div class="user-info">
                             <h3>Gustavo Lima</h3>
                             <p>${time}</p>
@@ -43,12 +43,12 @@ export class formPost {
                     </div>
                     <div class="post-content">
                         <p>${this.textarea.value}</p>
-                        <img src="./images/dog-tyson.jpeg" alt="Imagem da postagem">
+                        <img src="./src/img/cachorro-cururu.webp" alt="Imagem da postagem">
                     </div>
                     <div class="post-actions">
-                        <button type="button" class="files-post like"><img src="icons/paw.svg" alt="Curtir">Curtir</button>
-                        <button type="button" class="files-post direct"><img src="icons/direct.svg" alt="Comentar">Comentar</button>
-                        <button type="button" class="files-post share"><img src="icons/share.svg" alt="Compartilhar">Compartilhar</button>
+                        <button type="button" class="files-post like"><img src="./src/img/paw.svg" alt="Curtir">Curtir</button>
+                        <button type="button" class="files-post direct"><img src="./src/img/direct.svg" alt="Comentar">Comentar</button>
+                        <button type="button" class="files-post share"><img src="./src/img/share.svg" alt="Compartilhar">Compartilhar</button>
                     </div>
                 `;
                 
