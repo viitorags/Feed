@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="./reset.css">
+    <link rel="stylesheet" href="./style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <header>
+        <img src="./src/img/logo - SocialPet correto.png" height="60">
+    </header>
+
+    <main>
+        <section class="feed">
+            <!-- Postagem 1 -->
+            <article class="post">
+
+                <div class="post-header">
+                    <img src="./src/img/gato-grilado.jpg" class="img-user-post" alt="Foto de perfil">
+                    <div class="user-info">
+                        <h3>MyKão Tyson</h3>
+                        <p>21h</p>
+                    </div>
+                </div>
+
+                <div class="post-content">
+                    <p>Texto da postagem</p>
+                    <img src="./src/img/dog-tyson.jpeg" alt="Imagem da postagem">
+                </div>
+
+                <div class="post-actions">
+                    <button type="button" class="files-post like"><img src="src/img/paw.svg"
+                            alt="Curtir"><span>Curtir</span></button>
+                    <button type="button" class="files-post direct"><img src="src/img/direct.svg"
+                            alt="Comentar"><span>Comentar</span></button>
+                    <button type="button" class="files-post share"><img src="src/img/share.svg"
+                            alt="Compartilhar"><span>Compartilhar</span></button>
+                </div>
+            </article>
+        </section>
+
+        <div class="new-post">
+            <div class="info-user">
+                <!--Imagem do usuário-->
+                <div class="img-user">
+                    <img src="./src/img/cachorro-cururu.webp" alt="">
+                </div>
+                <!--Nome do usuário-->
+                <strong>Gustavo Lima</strong>
+            </div>
+
+            <form action="" class="formPost" id="formPost">
+                <textarea name="textarea" placeholder="Amo filhotes!" id="textarea"></textarea>
+
+                <!--Ícones e botões do post-->
+                <div class="icons-and-button">
+                    <div class="icons">
+
+                        <button class="btn-file-form"><img src="./src/img/img.svg" alt="Adicionar uma imagem"></button>
+
+                        <button class="btn-file-form"><img src="./src/img/gif.svg" alt="Adicionar um gif"></button>
+
+                        <button class="btn-file-form"><img src="./src/img/video.svg" alt="Adicionar um video"></button>
+
+                    </div>
+                    <!--BOTÃO DE PUBLICAR-->
+                    <button type="submit" class="btn-submit-form">Publicar</button>
+                </div>
+            </form>
+        </div>
+
+    </main>
+
+    <aside class="sidebar-left">
+        <div class="user-profile">
+
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#home"><i class="bi-house"></i>Home</a></li>
+                <li><a href=""><i class="bi bi-search"></i>Search</a></li>
+                <li><a href="#perfil"><i class="bi-person"></i>Perfil</a></li>
+            </ul>
+        </nav>
+
+    </aside>
+    <aside class="sidebar-right">
+        <h3>Quem Seguir</h3>
+        <div class="suggestion">
+            <img src="./src/img/dog-tyson.jpeg" alt="Sugestão de usuário">
+            <div class="suggestion-info">
+                <strong>Maria Silva</strong>
+                <p>2 amigos em comum</p>
+            </div>
+            <button>Seguir</button>
+        </div>
+        <div class="suggestion">
+            <img src="./src/img/gato-grilado.jpg" alt="Sugestão de usuário">
+            <div class="suggestion-info">
+                <strong>João Santos</strong>
+                <p>1 amigo em comum</p>
+            </div>
+            <button>Seguir</button>
+        </div>
+    </aside>
+
+    <div class="mobile-menu">
+        <nav>
+            <ul>
+                <li><a href="#home"><i class="bi bi-house"></i></a></li>
+                <li><a href="#pesquisar"><i class="bi bi-search"></i></a></li>
+                <li><button class="form-modal"><i class="bi bi-plus-circle"></i></button></li>
+                <li><a href="#profile"><i class="bi bi-person"></i></a></li>
+            </ul>
+        </nav>
+    </div>
+    <dialog class="formMobile">
+        <button class="close-modal">✕</button>
+        <form action="" class="formPost" id="formPostMobile">
+            <textarea name="textarea" placeholder="Amo filhotes!" id="textareaMobile"></textarea>
+            <!--Ícones e botões do post-->
+            <div class="icons-and-button">
+                <div class="icons">
+                    <button class="btn-file-form"><img src="./src/img/img.svg" alt="Adicionar uma imagem"></button>
+                    <button class="btn-file-form"><img src="./src/img/gif.svg" alt="Adicionar um gif"></button>
+                    <button class="btn-file-form"><img src="./src/img/video.svg" alt="Adicionar um video"></button>
+                </div>
+                <!--BOTÃO DE PUBLICAR-->
+                <button type="submit" class="btn-submit-form">Publicar</button>
+            </div>
+        </form>
+    </dialog>
+    <script type="module" src="./src/js/script.js"></script>
+
+</body>
+
+</html>
