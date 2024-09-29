@@ -46,9 +46,9 @@ export class formPost {
                         <img src="./src/img/cachorro-cururu.webp" alt="Imagem da postagem">
                     </div>
                     <div class="post-actions">
-                        <button type="button" class="files-post like"><img src="./src/img/paw.svg" alt="Curtir">Curtir</button>
-                        <button type="button" class="files-post direct"><img src="./src/img/direct.svg" alt="Comentar">Comentar</button>
-                        <button type="button" class="files-post share"><img src="./src/img/share.svg" alt="Compartilhar">Compartilhar</button>
+                        <button type="button" class="files-post like"><img src="./src/img/paw.svg" alt="Curtir"><span>Curtir</span></button>
+                        <button type="button" class="files-post direct"><img src="./src/img/direct.svg" alt="Comentar"><span>Comentar</span></button>
+                        <button type="button" class="files-post share"><img src="./src/img/share.svg" alt="Compartilhar"><span>Compartilhar</span></button>
                     </div>
                 `;
                 
