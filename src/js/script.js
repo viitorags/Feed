@@ -1,11 +1,28 @@
 export class formPost {
-    constructor(idForm, idTextarea) {
+    constructor(idForm, idTextarea, idFileInput) {
         this.form = document.getElementById(idForm);
         this.textarea = document.getElementById(idTextarea);
-        this.ulPost = document.querySelector('section.feed'); // Seleciona a seção do feed
+        this.fileInput = document.getElementById(idFileInput);
+        this.ulPost = document.querySelector('section.feed');
+        this.selectedImage = null; // Armazena a imagem selecionada
         this.addSubmit();
+        this.addFileInputHandler();
     }
-    
+
+    /* Função para gerenciar o upload de imagem */
+    addFileInputHandler() {
+        this.fileInput.addEventListener("change", (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    this.selectedImage = e.target.result; // Armazena o conteúdo da imagem
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    }
+
     onSubmit(func) {
         this.form.addEventListener('submit', func);
     }
@@ -33,7 +50,7 @@ export class formPost {
                 newPost.classList.add('post');
 
                 /* Conteúdo da postagem dinâmica */
-                newPost.innerHTML = `
+                let postContent = `
                     <div class="post-header">
                         <img src="./src/img/dog-tyson.jpeg" class="img-user-post" alt="Foto de perfil">
                         <div class="user-info">
@@ -43,49 +60,58 @@ export class formPost {
                     </div>
                     <div class="post-content">
                         <p>${this.textarea.value}</p>
-                        <img src="./src/img/cachorro-cururu.webp" alt="Imagem da postagem">
-                    </div>
+                `;
+
+                if (this.selectedImage) {
+                    postContent += `<img src="${this.selectedImage}" alt="Imagem da postagem">`;
+                }
+
+                postContent += `</div>
                     <div class="post-actions">
                         <button type="button" class="files-post like"><img src="./src/img/paw.svg" alt="Curtir"><span>Curtir</span></button>
                         <button type="button" class="files-post direct"><img src="./src/img/direct.svg" alt="Comentar"><span>Comentar</span></button>
                         <button type="button" class="files-post share"><img src="./src/img/share.svg" alt="Compartilhar"><span>Compartilhar</span></button>
                     </div>
                 `;
+
+                newPost.innerHTML = postContent;
                 
                 this.ulPost.append(newPost);
                 this.textarea.value = "";
+                this.selectedImage = null; // Resetar a imagem selecionada
 
             } else {
-                /* Alerta para campo vazio ou < 3 caracteres */
                 alert('Verifique o campo digitado.');
             }
-        }
+        };
 
         this.onSubmit(handleSubmit);
     }
 }
 
-const postForm = new formPost('formPost', 'textarea');
+// Desktop
+const postFormDesktop = new formPost('formPost', 'textarea', 'uploadImageInput');
+document.getElementById("btnUploadImage").addEventListener("click", () => {
+    document.getElementById("uploadImageInput").click();
+});
 
-// MOBILE
+// Mobile
+const postFormMobile = new formPost('formPostMobile', 'textareaMobile', 'uploadImageInputMobile');
+document.getElementById("btnUploadImageMobile").addEventListener("click", () => {
+    document.getElementById("uploadImageInputMobile").click();
+});
 
-const postFormDesktop = new formPost('formPost', 'textarea');
+// Modal Mobile
+const openModalButton = document.querySelector(".form-modal");
+const modalElement = document.querySelector(".formMobile");
+const closeModalButton = document.querySelector(".close-modal");
 
-const postFormMobile = new formPost('formPostMobile', 'textareaMobile');
-
-// Abrir formulário em dispositivos Mobile
-const openModalButton = document.querySelector(".form-modal");  // Botão de abrir a modal
-const modalElement = document.querySelector(".formMobile");     // Modal
-const closeModalButton = document.querySelector(".close-modal"); // Botão de fechar
-
-// Função para abrir a modal no clique
 openModalButton.addEventListener("click", () => {
     if (!modalElement.open) {
         modalElement.showModal();
     }
 });
 
-// Função para fechar a modal no clique do botão de fechar
 closeModalButton.addEventListener("click", () => {
     modalElement.close();
 });
