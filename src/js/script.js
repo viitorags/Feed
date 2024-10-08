@@ -52,7 +52,7 @@ export class formPost {
                 /* Conteúdo da postagem dinâmica */
                 let postContent = `
                     <div class="post-header">
-                        <img src="./src/img/dog-tyson.jpeg" class="img-user-post" alt="Foto de perfil">
+                        <img src="./src/img/cachorro-cururu.webp" class="img-user-post" alt="Foto de perfil">
                         <div class="user-info">
                             <h3>Gustavo Lima</h3>
                             <p>${time}</p>
