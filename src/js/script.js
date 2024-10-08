@@ -9,14 +9,14 @@ export class formPost {
         this.addFileInputHandler();
     }
 
-    /* Função para gerenciar o upload de imagem */
+    /* Função para gerenciar a inserção de imagem */
     addFileInputHandler() {
         this.fileInput.addEventListener("change", (event) => {
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = (e) => {
-                    this.selectedImage = e.target.result; // Armazena o conteúdo da imagem
+                    this.selectedImage = e.target.result; 
                 };
                 reader.readAsDataURL(file);
             }
