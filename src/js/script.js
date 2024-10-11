@@ -14,17 +14,37 @@ export class formPost {
     /* Função para gerenciar o upload de imagem */
     addFileInputHandler() {
         this.fileInput.addEventListener("change", (event) => {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    this.selectedImage = e.target.result;
-                    this.showPreviewImage(); // Chama a função para exibir a imagem
-                };
-                reader.readAsDataURL(file);
+            const files = event.target.files; // Coletar múltiplos arquivos
+            this.selectedImages = []; // Armazena múltiplas imagens
+            const previewContainer = document.getElementById('selectedImagePreview');
+            previewContainer.innerHTML = ""; // Limpar a pré-visualização
+
+            Array.from(files).forEach(file => {
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        this.selectedImages.push(e.target.result); // Armazena cada imagem
+                        // Exibir a imagem na pré-visualização
+                        const imgElement = document.createElement('img');
+                        imgElement.src = e.target.result;
+                        imgElement.style.maxWidth = "100%";
+                        imgElement.style.maxHeight = "300px";
+                        imgElement.style.objectFit = "contain";
+                        imgElement.style.borderRadius = "8px";
+                        imgElement.style.marginTop = "10px";
+                        previewContainer.appendChild(imgElement);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // Mostrar o contêiner de pré-visualização
+            if (files.length > 0) {
+                previewContainer.style.display = 'block';
             }
         });
     }
+
 
     /* Função para exibir a imagem selecionada */
     showPreviewImage() {
@@ -45,7 +65,7 @@ export class formPost {
         return value && value.length >= 3;
     }
 
-    /* Função para obter a data atual */ 
+    /* Função para obter a data atual */
     getTime() {
         const time = new Date();
         const hour = time.getHours();
@@ -61,7 +81,7 @@ export class formPost {
                 const time = this.getTime();
                 const newPost = document.createElement('article');
                 newPost.classList.add('post');
-
+    
                 /* Conteúdo da postagem dinâmica */
                 let postContent = `
                     <div class="post-header">
@@ -74,11 +94,14 @@ export class formPost {
                     <div class="post-content">
                         <p>${this.textarea.value}</p>
                 `;
-
-                if (this.selectedImage) {
-                    postContent += `<img src="${this.selectedImage}" alt="Imagem da postagem">`;
+    
+                /* Adicionando múltiplas imagens */
+                if (this.selectedImages && this.selectedImages.length > 0) {
+                    this.selectedImages.forEach(imageSrc => {
+                        postContent += `<img src="${imageSrc}" alt="Imagem da postagem" style="max-width:100%; max-height:300px; object-fit:contain; border-radius:8px; margin-top:10px;">`;
+                    });
                 }
-
+    
                 postContent += `</div>
                     <div class="post-actions">
                         <button type="button" class="files-post like"><img src="./src/img/paw.svg" alt="Curtir"><span>Curtir</span></button>
@@ -86,19 +109,20 @@ export class formPost {
                         <button type="button" class="files-post share"><img src="./src/img/share.svg" alt="Compartilhar"><span>Compartilhar</span></button>
                     </div>
                 `;
-
+    
                 newPost.innerHTML = postContent;
                 
                 this.ulPost.append(newPost);
                 this.textarea.value = "";
-                this.selectedImage = null; // Resetar a imagem selecionada
-                this.imagePreviewContainer.style.display = "none"; // Oculta o preview
-
+                this.selectedImages = []; // Resetar as imagens selecionadas
+                document.getElementById('selectedImagePreview').style.display = 'none'; // Esconder o preview
+                document.getElementById('selectedImagePreview').innerHTML = ""; // Limpar o preview
+    
             } else {
                 alert('Verifique o campo digitado.');
             }
         };
-
+    
         this.onSubmit(handleSubmit);
     }
 }
