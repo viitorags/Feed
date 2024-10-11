@@ -163,6 +163,17 @@ button:hover {
     border-radius: 50%;
 }
 
+/* Ajuste para a imagem de pré-visualização no desktop */
+#selectedImagePreview img,
+#selectedImagePreviewMobile img {
+    max-width: 100%;
+    max-height: 300px; /* Defina o tamanho máximo da altura */
+    object-fit: contain; /* Garante que a imagem não fique distorcida */
+    border-radius: 8px; /* Para dar um estilo mais arredondado, opcional */
+    margin-top: 10px; /* Para dar um espaçamento em relação ao textarea */
+}
+
+
 textarea {
     width: 100%;
     padding: 12px;
