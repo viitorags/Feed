@@ -1,26 +1,39 @@
 export class formPost {
-    constructor(idForm, idTextarea, idFileInput) {
+    constructor(idForm, idTextarea, idFileInput, idImagePreviewContainer, idImagePreview) {
         this.form = document.getElementById(idForm);
         this.textarea = document.getElementById(idTextarea);
         this.fileInput = document.getElementById(idFileInput);
+        this.imagePreviewContainer = document.getElementById(idImagePreviewContainer);
+        this.imagePreview = document.getElementById(idImagePreview);
         this.ulPost = document.querySelector('section.feed');
         this.selectedImage = null; // Armazena a imagem selecionada
         this.addSubmit();
         this.addFileInputHandler();
     }
 
-    /* Função para gerenciar a inserção de imagem */
+    /* Função para gerenciar o upload de imagem */
     addFileInputHandler() {
         this.fileInput.addEventListener("change", (event) => {
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = (e) => {
-                    this.selectedImage = e.target.result; 
+                    this.selectedImage = e.target.result;
+                    this.showPreviewImage(); // Chama a função para exibir a imagem
                 };
                 reader.readAsDataURL(file);
             }
         });
+    }
+
+    /* Função para exibir a imagem selecionada */
+    showPreviewImage() {
+        if (this.selectedImage) {
+            this.imagePreview.src = this.selectedImage;
+            this.imagePreviewContainer.style.display = "block"; // Mostra o contêiner da imagem
+        } else {
+            this.imagePreviewContainer.style.display = "none"; // Oculta se não houver imagem
+        }
     }
 
     onSubmit(func) {
@@ -52,7 +65,7 @@ export class formPost {
                 /* Conteúdo da postagem dinâmica */
                 let postContent = `
                     <div class="post-header">
-                        <img src="./src/img/cachorro-cururu.webp" class="img-user-post" alt="Foto de perfil">
+                        <img src="./src/img/dog-tyson.jpeg" class="img-user-post" alt="Foto de perfil">
                         <div class="user-info">
                             <h3>Gustavo Lima</h3>
                             <p>${time}</p>
@@ -79,6 +92,7 @@ export class formPost {
                 this.ulPost.append(newPost);
                 this.textarea.value = "";
                 this.selectedImage = null; // Resetar a imagem selecionada
+                this.imagePreviewContainer.style.display = "none"; // Oculta o preview
 
             } else {
                 alert('Verifique o campo digitado.');
@@ -90,13 +104,13 @@ export class formPost {
 }
 
 // Desktop
-const postFormDesktop = new formPost('formPost', 'textarea', 'uploadImageInput');
+const postFormDesktop = new formPost('formPost', 'textarea', 'uploadImageInput', 'selectedImagePreview', 'imagePreview');
 document.getElementById("btnUploadImage").addEventListener("click", () => {
     document.getElementById("uploadImageInput").click();
 });
 
 // Mobile
-const postFormMobile = new formPost('formPostMobile', 'textareaMobile', 'uploadImageInputMobile');
+const postFormMobile = new formPost('formPostMobile', 'textareaMobile', 'uploadImageInputMobile', 'selectedImagePreviewMobile', 'imagePreviewMobile');
 document.getElementById("btnUploadImageMobile").addEventListener("click", () => {
     document.getElementById("uploadImageInputMobile").click();
 });
