@@ -48,14 +48,14 @@
             <div class="info-user">
                 <!--Imagem do usuário-->
                 <div class="img-user">
-                    <img src="./src/img/
-77fb45d1b36125547c4c2bf0640252b3.jpg" alt="">
+                    <img src="./src/img/77fb45d1b36125547c4c2bf0640252b3.jpg" alt="">
                 </div>
                 <!--Nome do usuário-->
                 <strong>Gustavo Lima</strong>
             </div>
 
             <form action="" class="formPost" id="formPost">
+                <!-- Pré-visualização da imagem -->
                 <div id="selectedImagePreview" style="display: none;">
                     <img id="imagePreview" src="" alt="Imagem Selecionada" style="max-width: 100%; height: auto;">
                 </div>
@@ -64,14 +64,11 @@
                 <!--Ícones e botões do post-->
                 <div class="icons-and-button">
                     <div class="icons">
-
                         <button class="btn-file-form" type="button" id="btnUploadImage"><i class="bi bi-card-image"></i></button>
                         <input type="file" id="uploadImageInput" style="display: none;" accept="image/*">
 
                         <button class="btn-file-form" type="button"><i class="bi bi-filetype-gif"></i></button>
-
                         <button class="btn-file-form" type="button"><i class="bi bi-camera-video"></i></button>
-
                     </div>
                     <!--BOTÃO DE PUBLICAR-->
                     <button type="submit" class="btn-submit-form">Publicar</button>
@@ -82,9 +79,7 @@
     </main>
 
     <aside class="sidebar-left">
-        <div class="user-profile">
-
-        </div>
+        <div class="user-profile"></div>
         <nav>
             <ul>
                 <li><a href="#home"><i class="bi-house-door"></i>Home</a></li>
@@ -92,8 +87,8 @@
                 <li><a href="#perfil"><i class="bi-person"></i>Perfil</a></li>
             </ul>
         </nav>
-
     </aside>
+
     <aside class="sidebar-right">
         <h3>Quem Seguir</h3>
         <div class="suggestion">
@@ -124,12 +119,15 @@
             </ul>
         </nav>
     </div>
+
+    <!-- Modal Mobile -->
     <dialog class="formMobile">
         <button class="close-modal">✕</button>
         <form action="" class="formPost" id="formPostMobile">
-            <div id="selectedImagePreview" style="display: none;">
-                    <img id="imagePreview" src="" alt="Imagem Selecionada" style="max-width: 100%; height: auto;">
-                </div>
+            <!-- Pré-visualização da imagem para Mobile -->
+            <div id="selectedImagePreviewMobile" style="display: none;">
+                <img id="imagePreviewMobile" src="" alt="Imagem Selecionada" style="max-width: 100%; height: auto;">
+            </div>
             <textarea name="textarea" placeholder="Amo filhotes!" id="textareaMobile"></textarea>
             <!--Ícones e botões do post-->
             <div class="icons-and-button">
@@ -140,11 +138,12 @@
                     <button class="btn-file-form" type="button"><i class="bi bi-filetype-gif"></i></button>
                     <button class="btn-file-form" type="button"><i class="bi bi-camera-video"></i></button>
                 </div>
-                <!--BOTÃcamera-video.svgICAR-->
+                <!--BOTÃO DE PUBLICAR-->
                 <button type="submit" class="btn-submit-form">Publicar</button>
             </div>
         </form>
     </dialog>
+
     <script type="module" src="./src/js/script.js"></script>
 
 </body>
