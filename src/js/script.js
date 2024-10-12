@@ -1,30 +1,29 @@
 export class formPost {
-    constructor(idForm, idTextarea, idFileInput, idImagePreviewContainer, idImagePreview) {
+    constructor(idForm, idTextarea, idFileInput, previewContainerId) {
         this.form = document.getElementById(idForm);
         this.textarea = document.getElementById(idTextarea);
         this.fileInput = document.getElementById(idFileInput);
-        this.imagePreviewContainer = document.getElementById(idImagePreviewContainer);
-        this.imagePreview = document.getElementById(idImagePreview);
         this.ulPost = document.querySelector('section.feed');
-        this.selectedImage = null; // Armazena a imagem selecionada
+        this.selectedImages = []; // Armazena múltiplas imagens
+        this.previewContainer = document.getElementById(previewContainerId); // Elemento para pré-visualização
         this.addSubmit();
         this.addFileInputHandler();
     }
 
-    /* Função para gerenciar o upload de imagem */
+    /* Função para gerenciar a inserção de várias imagens */
     addFileInputHandler() {
         this.fileInput.addEventListener("change", (event) => {
-            const files = event.target.files; // Coletar múltiplos arquivos
-            this.selectedImages = []; // Armazena múltiplas imagens
-            const previewContainer = document.getElementById('selectedImagePreview');
-            previewContainer.innerHTML = ""; // Limpar a pré-visualização
+            const files = event.target.files; // Múltiplos arquivos
+            this.selectedImages = []; // Limpa as imagens selecionadas anteriormente
+            this.previewContainer.innerHTML = ""; // Limpa o preview anterior
 
             Array.from(files).forEach(file => {
                 if (file) {
                     const reader = new FileReader();
                     reader.onload = (e) => {
-                        this.selectedImages.push(e.target.result); // Armazena cada imagem
-                        // Exibir a imagem na pré-visualização
+                        this.selectedImages.push(e.target.result); // Armazenar cada imagem
+                        
+                        // Criar elemento de imagem para o preview
                         const imgElement = document.createElement('img');
                         imgElement.src = e.target.result;
                         imgElement.style.maxWidth = "100%";
@@ -32,28 +31,17 @@ export class formPost {
                         imgElement.style.objectFit = "contain";
                         imgElement.style.borderRadius = "8px";
                         imgElement.style.marginTop = "10px";
-                        previewContainer.appendChild(imgElement);
+                        this.previewContainer.appendChild(imgElement);
                     };
                     reader.readAsDataURL(file);
                 }
             });
 
-            // Mostrar o contêiner de pré-visualização
+            // Mostrar o container de preview se houver imagens
             if (files.length > 0) {
-                previewContainer.style.display = 'block';
+                this.previewContainer.style.display = 'block';
             }
         });
-    }
-
-
-    /* Função para exibir a imagem selecionada */
-    showPreviewImage() {
-        if (this.selectedImage) {
-            this.imagePreview.src = this.selectedImage;
-            this.imagePreviewContainer.style.display = "block"; // Mostra o contêiner da imagem
-        } else {
-            this.imagePreviewContainer.style.display = "none"; // Oculta se não houver imagem
-        }
     }
 
     onSubmit(func) {
@@ -65,7 +53,7 @@ export class formPost {
         return value && value.length >= 3;
     }
 
-    /* Função para obter a data atual */
+    /* Função para obter a data atual */ 
     getTime() {
         const time = new Date();
         const hour = time.getHours();
@@ -81,11 +69,11 @@ export class formPost {
                 const time = this.getTime();
                 const newPost = document.createElement('article');
                 newPost.classList.add('post');
-    
+
                 /* Conteúdo da postagem dinâmica */
                 let postContent = `
                     <div class="post-header">
-                        <img src="./src/img/77fb45d1b36125547c4c2bf0640252b3" class="img-user-post" alt="Foto de perfil">
+                        <img src="./src/img/dog-tyson.jpeg" class="img-user-post" alt="Foto de perfil">
                         <div class="user-info">
                             <h3>Gustavo Lima</h3>
                             <p>${time}</p>
@@ -94,14 +82,14 @@ export class formPost {
                     <div class="post-content">
                         <p>${this.textarea.value}</p>
                 `;
-    
-                /* Adicionando múltiplas imagens */
-                if (this.selectedImages && this.selectedImages.length > 0) {
-                    this.selectedImages.forEach(imageSrc => {
-                        postContent += `<img src="${imageSrc}" alt="Imagem da postagem" style="max-width:100%; max-height:300px; object-fit:contain; border-radius:8px; margin-top:10px;">`;
+
+                // Adicionar cada imagem selecionada ao conteúdo do post
+                if (this.selectedImages.length > 0) {
+                    this.selectedImages.forEach(image => {
+                        postContent += `<img src="${image}" alt="Imagem da postagem" style="max-width: 100%; max-height: 300px; object-fit: contain; margin-top: 10px;">`;
                     });
                 }
-    
+
                 postContent += `</div>
                     <div class="post-actions">
                         <button type="button" class="files-post like"><img src="./src/img/paw.svg" alt="Curtir"><span>Curtir</span></button>
@@ -109,32 +97,32 @@ export class formPost {
                         <button type="button" class="files-post share"><img src="./src/img/share.svg" alt="Compartilhar"><span>Compartilhar</span></button>
                     </div>
                 `;
-    
+
                 newPost.innerHTML = postContent;
-                
+
                 this.ulPost.append(newPost);
                 this.textarea.value = "";
+                this.previewContainer.innerHTML = ""; // Limpa o preview após o post
+                this.previewContainer.style.display = 'none'; // Esconder o container de preview
                 this.selectedImages = []; // Resetar as imagens selecionadas
-                document.getElementById('selectedImagePreview').style.display = 'none'; // Esconder o preview
-                document.getElementById('selectedImagePreview').innerHTML = ""; // Limpar o preview
-    
+
             } else {
                 alert('Verifique o campo digitado.');
             }
         };
-    
+
         this.onSubmit(handleSubmit);
     }
 }
 
 // Desktop
-const postFormDesktop = new formPost('formPost', 'textarea', 'uploadImageInput', 'selectedImagePreview', 'imagePreview');
+const postFormDesktop = new formPost('formPost', 'textarea', 'uploadImageInput', 'selectedImagePreview');
 document.getElementById("btnUploadImage").addEventListener("click", () => {
     document.getElementById("uploadImageInput").click();
 });
 
 // Mobile
-const postFormMobile = new formPost('formPostMobile', 'textareaMobile', 'uploadImageInputMobile', 'selectedImagePreviewMobile', 'imagePreviewMobile');
+const postFormMobile = new formPost('formPostMobile', 'textareaMobile', 'uploadImageInputMobile', 'selectedImagePreviewMobile');
 document.getElementById("btnUploadImageMobile").addEventListener("click", () => {
     document.getElementById("uploadImageInputMobile").click();
 });
